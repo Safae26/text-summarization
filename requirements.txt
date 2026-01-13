@@ -1,0 +1,10 @@
+streamlit 
+transformers 
+torch 
+beautifulsoup4
+streamlit-lottie 
+streamlit-option-menu 
+
+requests
+altair 
+pandas
