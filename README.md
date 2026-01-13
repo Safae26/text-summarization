@@ -21,9 +21,7 @@ Le modèle a été entraîné sur GPU (T4 x2) avec les hyperparamètres suivants
 - **Batch Size:** 32
 - **Optimizer:** AdamW
 
-*(Vous pourrez ajouter ici vos scores ROUGE finaux une fois calculés, ex: ROUGE-1: 42.5)*
-
 ## 📦 Installation
 1. Clonez le dépôt :
 ```bash
-git clone [https://github.com/VOTRE_USERNAME/T5-Text-Summarization-CNN.git](https://github.com/VOTRE_USERNAME/T5-Text-Summarization-CNN.git)
+git clone [https://github.com/Safae26/text-summarization.git](https://github.com/Safae26/text-summarization.git)
