@@ -1,2 +1,29 @@
-# text-summarization
-Abstractive Text Summarization using T5 Transformer fine-tuned on the CNN/DailyMail dataset with PyTorch &amp; Hugging Face.
+# 📰 Text Summarization with T5 & CNN/DailyMail
+
+Ce projet implémente un modèle de **Deep Learning** pour le résumé automatique de textes journalistiques. Il utilise l'architecture **T5 (Text-To-Text Transfer Transformer)** fine-tunée sur le dataset **CNN/DailyMail**.
+
+## 🚀 Fonctionnalités
+- **Fine-tuning** du modèle `t5-small` sur des articles de presse.
+- **Prétraitement** des données (Tokenization, Nettoyage).
+- **Visualisation** des données (WordClouds, distribution des longueurs).
+- **Évaluation** avec la métrique **ROUGE** (Recall-Oriented Understudy for Gisting Evaluation).
+- **Interface** de visualisation des courbes de perte (Training vs Validation).
+
+## 🛠️ Technologies
+* **Python 3.10+**
+* **Hugging Face Transformers** (T5, Seq2SeqTrainer)
+* **PyTorch**
+* **Pandas / Matplotlib / Seaborn**
+
+## 📊 Résultats
+Le modèle a été entraîné sur GPU (T4 x2) avec les hyperparamètres suivants :
+- **Epochs:** 3
+- **Batch Size:** 32
+- **Optimizer:** AdamW
+
+*(Vous pourrez ajouter ici vos scores ROUGE finaux une fois calculés, ex: ROUGE-1: 42.5)*
+
+## 📦 Installation
+1. Clonez le dépôt :
+```bash
+git clone [https://github.com/VOTRE_USERNAME/T5-Text-Summarization-CNN.git](https://github.com/VOTRE_USERNAME/T5-Text-Summarization-CNN.git)
