@@ -8,3 +8,5 @@ streamlit-option-menu
 requests
 altair 
 pandas
+fpdf
+PyPDF2

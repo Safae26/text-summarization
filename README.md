@@ -1,9 +1,9 @@
 # 📰 Text Summarization with T5 & CNN/DailyMail
 
-Ce projet implémente un modèle de **Deep Learning** pour le résumé automatique de textes journalistiques. Il utilise l'architecture **T5 (Text-To-Text Transfer Transformer)** fine-tunée sur le dataset **CNN/DailyMail**.
+Ce projet implémente un modèle de **Deep Learning** fine-tunée sur le dataset **CNN/DailyMail** pour le résumé automatique de textes journalistiques.
 
 ## 🚀 Fonctionnalités
-- **Fine-tuning** du modèle `t5-small` sur des articles de presse.
+- **Fine-tuning**
 - **Prétraitement** des données (Tokenization, Nettoyage).
 - **Visualisation** des données (WordClouds, distribution des longueurs).
 - **Évaluation** avec la métrique **ROUGE** (Recall-Oriented Understudy for Gisting Evaluation).
@@ -11,14 +11,14 @@ Ce projet implémente un modèle de **Deep Learning** pour le résumé automatiq
 
 ## 🛠️ Technologies
 * **Python 3.10+**
-* **Hugging Face Transformers** (T5, Seq2SeqTrainer)
+* **Hugging Face Transformers** 
 * **PyTorch**
 * **Pandas / Matplotlib / Seaborn**
 
 ## 📊 Résultats
 Le modèle a été entraîné sur GPU (T4 x2) avec les hyperparamètres suivants :
-- **Epochs:** 3
-- **Batch Size:** 32
+- **Epochs:** 5
+- **Batch Size:** 6
 - **Optimizer:** AdamW
 
 ## 📦 Installation
