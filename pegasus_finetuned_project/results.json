@@ -1,0 +1,29 @@
+{
+  "model": "PEGASUS (175M) fine-tuned",
+  "training": {
+    "examples": 5000,
+    "validation": 1000,
+    "epochs": 5,
+    "learning_rate": 1e-05,
+    "batch_size": 4,
+    "gradient_accumulation": 4,
+    "training_time_minutes": 60.427566666666664
+  },
+  "evaluation": {
+    "test_examples": 1000,
+    "rouge1": 34.9248172666265,
+    "rouge2": 14.456173199291936,
+    "rougeL": 25.509385526898786,
+    "rougeLsum": 29.261020033013736,
+    "std_rouge1": 13.349563777829276,
+    "evaluation_time_minutes": 24.49502770105998
+  },
+  "comparison_with_article": {
+    "article_rouge1": 33.69,
+    "article_rouge2": 21.58,
+    "article_rougeL": 28.43,
+    "article_rougeLsum": 23.76,
+    "difference_rouge1": 1.2348172666265
+  },
+  "date": "2026-01-15T03:05:25.691464"
+}
