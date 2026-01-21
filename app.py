@@ -23,8 +23,9 @@ st.set_page_config(
 )
 
 # --- Constants ---
-MAX_INPUT_LENGTH = 512  # Max length for the article
-MAX_TARGET_LENGTH = 128  # Max length for the summary
+# [FIXED] Clarified that these limits correspond to token approximations
+MAX_INPUT_LENGTH = 512   # Max input length (tokens, approx.)
+MAX_TARGET_LENGTH = 128  # Max summary length (tokens)
 
 # --- Asset Loading ---
 @st.cache_data
@@ -149,7 +150,8 @@ def extract_text_from_file(uploaded_file):
         for page in pdf_reader.pages:
             text += page.extract_text() or ""
     else: # Text file
-        text = str(uploaded_file.read(), "utf-8")
+        # [FIXED] Robust decoding for TXT files (prevent crashing on non-UTF-8)
+        text = uploaded_file.read().decode("utf-8", errors="replace")
     return text
 
 # --- Main App ---
@@ -239,7 +241,8 @@ def main():
                 st.markdown("✅ **Our Way (Abstractive)**")
                 st.caption("Understands and rewrites.")
                 st.code("The cat sat down to eat.", language="text")
-            st.markdown("</div>", unsafe_allow_html=True)
+            
+            # [FIXED] Removed the stray closing div tag that was here
 
         with tab2:
             st.subheader("The Transformer Architecture")
@@ -251,7 +254,12 @@ def main():
     elif selected == "App":
         st.title("📝 Magic Summarizer")
         
-        st.warning(f"⚠️ **Note:** For best results, input article length should be roughly under {MAX_INPUT_LENGTH} words. The summary will be capped at {MAX_TARGET_LENGTH} words.")
+        # [FIXED] Updated warning text to reflect 'tokens' instead of 'words'
+        st.warning(
+            f"⚠️ **Note:** For best results, input length should be roughly under "
+            f"{MAX_INPUT_LENGTH} tokens (approx.). The summary will be capped at "
+            f"{MAX_TARGET_LENGTH} tokens."
+        )
 
         col1, col2 = st.columns([2, 1])
         
@@ -292,11 +300,14 @@ def main():
                             else:
                                 st.spinner("Thinking...")
                     try:
-                        summarizer = load_model()
+                        # [FIXED] Added explicit spinner for model loading to improve UX
+                        with st.spinner("Loading summarization model..."):
+                            summarizer = load_model()
+                        
                         result = summarizer(input_text, max_length=max_L, min_length=min_L, do_sample=False, truncation=True)
                         st.session_state.summary = result[0]['summary_text']
                         st.session_state.animate = True
-                        with col2: status_box.empty()     
+                        with col2: status_box.empty()      
                     except Exception as e:
                         st.error(f"Oops! Something went wrong: {e}")
 
@@ -319,21 +330,39 @@ def main():
             
             st.markdown('<div style="animation: fadeInUp 1s ease-out;">', unsafe_allow_html=True)
             m1, m2, m3 = st.columns(3)
-            with m1: st.metric("Original Words", len(input_text.split()))
-            with m2: st.metric("Summary Words", len(st.session_state.summary.split()))
+            
+            original_len = len(input_text.split())
+            summary_len = len(st.session_state.summary.split())
+            
+            # [FIXED] Updated labels to 'Length (words)' for accuracy
+            with m1: st.metric("Original Length (words)", original_len)
+            with m2: st.metric("Summary Length (words)", summary_len)
             with m3:
-                reduction = (1 - (len(st.session_state.summary.split())/len(input_text.split()))) * 100
-                st.metric("Saved Reading", f"{reduction:.0f}%")
+                # [FIXED] Division by zero safety check
+                if original_len > 0:
+                    reduction = (1 - (summary_len / original_len)) * 100
+                    st.metric("Saved Reading", f"{reduction:.0f}%")
+                else:
+                    st.metric("Saved Reading", "N/A")
             st.markdown('</div>', unsafe_allow_html=True)
 
             st.write("---")
             col_dl1, col_dl2 = st.columns([3, 1])
             with col_dl2:
+                # PDF Download
                 try:
                     pdf_bytes = create_pdf(st.session_state.summary)
                     st.download_button(label="📄 Download as PDF", data=pdf_bytes, file_name="summary.pdf", mime="application/pdf")
                 except Exception as e:
                     st.error("Could not generate PDF download.")
+                
+                # [FIXED] Added TXT Download Button
+                st.download_button(
+                    label="📝 Download as TXT",
+                    data=st.session_state.summary,
+                    file_name="summary.txt",
+                    mime="text/plain"
+                )
 
 if __name__ == "__main__":
     main()
