@@ -1,4 +1,4 @@
-# 📰 Text Summarization with T5 & CNN/DailyMail
+# 📰 Text Summarization with CNN/DailyMail
 
 Ce projet implémente un modèle de **Deep Learning** fine-tunée sur le dataset **CNN/DailyMail** pour le résumé automatique de textes journalistiques.
 
